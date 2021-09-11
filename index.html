@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/estilo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-light bg-light">
+      <div class="navbar-brand mb-0 h1" id="divLogo">
+        <a href="index.html">Expelator</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div id="div2">
+      <form id="form">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" autocomplete="off"
+          oninput="activaEdad()" required>
+
+        <label for="edad">Edad</label>
+        <input type="text" id="edad" name="edad" placeholder="Ingrese su edad" autocomplete="off"
+          oninput="activaProvincia()" required>
+
+        <label for="provincia">Provincia/Ciudad</label>
+        <select id="provincia" name="provincia" onchange="activaMes()" required>
+          <option value=""> Seleccione la provincia </option>
+        </select>
+
+        <label for="mes">Mes de pago</label>
+        <select id="mes" name="mes" onchange="activaSueldo()" required>
+          <option value=""> Seleccione el mes </option>
+        </select>
+
+        <label for="sueldo">Salario bruto</label>
+        <input type="text" id="sueldo" name="sueldo" placeholder="Ingrese su sueldo bruto sin $" autocomplete="off"
+          oninput="activaCheck()" required>
+
+        <label for="check">Acepto los términos y condiciones</label>
+        <input type="checkbox" id="check" oninput="activaBoton1()" required>
+
+        <input id="boton1" type="submit" value="Confirmar">
+      </form>
+    </div>
+    <input id="boton3" type="click" value="Ingresar Gastos" style="display:none">
+    <div id="divCant" style="display:none">
+      <input id="boton5" type="submit" value="Confirmar" style="display:none">
+    </div>
+
+    <div id="div3" style="display:none">
+      <input id="boton4" type="submit" value="Calcular" style="display:none">
+    </div>
+    <div id="div4" style="display:none">
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="./JS/app.js"></script>
+</body>
+
+</html>
