@@ -172,10 +172,6 @@ input[type=checkbox] {
 }
 
 #boton2 {
-  font-size: 1.2rem;
-}
-
-#boton3 {
   width: 120px;
   height: 20px;
   font-size: 1.2rem;
@@ -204,7 +200,7 @@ input[type=checkbox] {
   color: black;
 }
 
-#boton4 {
+#boton3 {
   width: 100%;
   font-size: 1.2rem;
   background-color: #0D0D0D;
@@ -279,7 +275,7 @@ input[type=checkbox] {
   font-family: 'Bebas Neue', cursive;
 }
 
-#boton5 {
+#boton4 {
   width: 80%;
   font-size: 1rem;
   background-color: #0D0D0D;

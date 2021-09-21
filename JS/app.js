@@ -80,7 +80,8 @@
       m: 'Diciembre'
     }
   ]
-  const url = "https://apis.datos.gob.ar/georef/api/provincias";
+
+
   let edad = Number(document.querySelector("#edad").disabled = true);
   let provincia = document.querySelector("#provincia").disabled = true;
   let mes = document.querySelector("#mes").disabled = true;
@@ -92,15 +93,19 @@
   let boton2 = document.querySelector("#boton2");
   let boton3 = document.querySelector("#boton3");
   let boton4 = document.querySelector("#boton4");
-  let boton5 = document.querySelector("#boton5");
   let form = document.querySelector("#form");
   let div3 = document.querySelector("#div3");
   let divCant = document.querySelector("#divCant");
+
+  //API Provincias/Ciudad
+  const url = "https://apis.datos.gob.ar/georef/api/provincias";
 
 
   //////////////////////////////////////////////////////
   ///////////////////   FUNCIONES  /////////////////////
   //////////////////////////////////////////////////////
+
+  //Agregamos info de API en array que estará en el select de provincias
 
   $.get(url, (respuesta, estado) => {
 
@@ -126,6 +131,8 @@
     }
 
   });
+
+  //Agregamos dinámicamente los meses del array en el select
 
   meses.forEach(e => {
     let optionMes = document.createElement("option");
@@ -212,7 +219,7 @@
     }
   }
 
-  // Función que muestra los datos ingresados
+  // Función que muestra los datos ingresados en el form
   const printData = () => {
 
     let dataToPrint = JSON.parse(localStorage.getItem("users"));
@@ -235,7 +242,7 @@
 
     //Lo añadimos al selector del DOM
     main.appendChild(div1);
-    main.insertBefore(div1, boton3);
+    main.insertBefore(div1, boton2);
 
   };
 
@@ -274,39 +281,39 @@
   }
 
 
-  // Funciones que elimina el formulario anterior
+  // Función que elimina el formulario anterior
   const desapareceForm = () => {
     form.setAttribute("style", "display:none");
     div2.setAttribute("style", "background-color:#0D0D0D");
   };
 
   // Función que activa botón de ingreso de gastos
-
-  const activaBoton3 = () => {
+  const activaBoton2 = () => {
 
     $("#form").on("submit", () => {
-      $("#boton3").fadeIn(1000);
+      $("#boton2").fadeIn(1000);
       setTimeout(() => {
-        $("#boton3").attr("style", "display:block");
-      }
+          $("#boton2").attr("style", "display:block");
+        }
 
-    )});
+      )
+    });
 
   }
 
   // Función que desactiva botón de ingreso de gastos
-  const desactivaBoton3 = () => {
+  const desactivaBoton2 = () => {
     setTimeout(() =>
-      $("#boton3").on("click", () => {
-      $("#boton3").attr("style", "display:none");
+      $("#boton2").on("click", () => {
+        $("#boton2").attr("style", "display:none");
 
-    }), 1000);
+      }), 1000);
   }
 
-  // Función que activa div de cantidad
+  // Función que activa div de cantidad 
   const activaDiv = () => {
 
-    $("#boton3").on("click", () => {
+    $("#boton2").on("click", () => {
       $("#divCant").fadeIn(2000);
       setTimeout(() => {
         $("#divCant").attr("style", "display:block");
@@ -330,17 +337,17 @@
     let inputCant = document.createElement("input");
     inputCant.setAttribute("type", "text");
     inputCant.setAttribute("id", "inputCant");
-    inputCant.setAttribute("placeholder", "Ingrese aquí la cantidad");
+    inputCant.setAttribute("placeholder", "Ingresá aquí la cantidad");
     inputCant.setAttribute("autocomplete", "off");
 
-    boton5.setAttribute("style", "display:block");
+    boton4.setAttribute("style", "display:block");
 
     main.appendChild(divCant);
     divCant.appendChild(h5);
     divCant.appendChild(inputCant);
     h5.appendChild(pCant);
 
-    divCant.insertBefore(inputCant, boton5);
+    divCant.insertBefore(inputCant, boton4);
     divCant.insertBefore(h5, inputCant);
 
 
@@ -352,8 +359,11 @@
 
     let cantidad = inputCant.value;
 
-    if (cantidad > 0) {
-      boton3.setAttribute("style", "display:none");
+    if (cantidad > 20) {
+      alert("Se pueden ingresar hasta 20 gastos. Por favor inténtelo de nuevo.")
+      divCant.setAttribute("style", "display:block");
+    } else if (cantidad > 0 && cantidad <= 20) {
+      boton2.setAttribute("style", "display:none");
       let divNeto = document.querySelector("#divUsuario")
       divNeto.setAttribute("style", "display:none")
 
@@ -405,12 +415,15 @@
         div3.appendChild(inputGasto);
       });
 
-      boton4.setAttribute("style", "display:block");
-      div3.appendChild(boton4);
+      boton3.setAttribute("style", "display:block");
+      div3.appendChild(boton3);
 
-    } else {
+    } else if (cantidad === '0') {
       let divUs = document.querySelector("#divUsuario");
       divUs.setAttribute("style", "display:flex")
+    } else {
+      alert("Revise el dato ingresado.")
+      divCant.setAttribute("style", "display:block");
     }
 
   }
@@ -447,11 +460,11 @@
     main.appendChild(div4);
 
     if (sueldoNeto() - suma > 0) {
-      p3.textContent = `Te restarán $` + (restante.toFixed(2)) + ". " + "Has utilizado un " + porcentaje.toFixed(2) + "% de su sueldo.";
+      p3.textContent = `Te restarán $` + (restante.toFixed(2)) + ". " + "Has utilizado un " + porcentaje.toFixed(2) + "% de tu sueldo.";
       div3.setAttribute("style", "display:none");
 
     } else {
-      p3.textContent = `No te restará dinero y te faltarán $` + (restante - restante * 2).toFixed(2) + ". " + "Has utilizado más de un " + (porcentaje.toFixed(2) - 100) + "% de su sueldo.";
+      p3.textContent = `No te restará dinero y te faltarán $` + (restante - restante * 2).toFixed(2) + ". " + "Has utilizado más de un " + (porcentaje - 100).toFixed(2) + "% de tu sueldo.";
       div3.setAttribute("style", "display:none");
     }
   }
@@ -467,9 +480,9 @@
   form.addEventListener("submit", printData);
   form.addEventListener("submit", desactivarBoton);
   form.addEventListener("submit", desapareceForm);
-  activaBoton3();
-  desactivaBoton3();
+  activaBoton2();
+  desactivaBoton2();
   activaDiv();
-  boton3.addEventListener("click", ingresaGastos);
-  boton5.addEventListener("click", imprimeGastos);
-  boton4.addEventListener("click", calculoFinal);
+  boton2.addEventListener("click", ingresaGastos);
+  boton4.addEventListener("click", imprimeGastos);
+  boton3.addEventListener("click", calculoFinal);
